@@ -29,5 +29,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "android-app-starter-bare"
+rootProject.name = "passphrase-client"
 include(":app")
