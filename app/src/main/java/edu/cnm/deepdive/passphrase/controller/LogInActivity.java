@@ -3,12 +3,16 @@ package edu.cnm.deepdive.passphrase.controller;
 import static android.app.ProgressDialog.show;
 
 import android.content.Intent;
+import android.transition.Slide;
+import android.view.Gravity;
+import android.view.Window;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,6 +33,9 @@ public class LogInActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+    getWindow().setExitTransition(new Slide(Gravity.START));
+    getWindow().setEnterTransition(new Slide(Gravity.START));
     viewModel = new ViewModelProvider(this)
         .get(LoginViewModel.class);
     getLifecycle().addObserver(viewModel);
@@ -46,7 +53,7 @@ public class LogInActivity extends AppCompatActivity {
     if (account != null) {
       Intent intent = new Intent(this, MainActivity.class)
           .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivity(intent);
+      startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
     } else if (silent) {
       silent = false;
       binding = ActivityLogInBinding.inflate(getLayoutInflater());
