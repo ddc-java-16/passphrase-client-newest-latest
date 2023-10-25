@@ -42,7 +42,7 @@ android {
 
         resValue("string", "app_name", project.property("appName") as String)
         resValue("string", "service_baseurl", project.property("serviceBaseUrl") as String)
-
+        resValue("string", "service_client_id", getLocalProperty("passphraseClientId") !!)
     }
 
     buildTypes {

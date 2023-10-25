@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions.Builder;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import dagger.hilt.android.qualifiers.ApplicationContext;
+import edu.cnm.deepdive.passphrase.R;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleEmitter;
@@ -31,8 +32,14 @@ public class GoogleSignInService {
 
   @Inject
   GoogleSignInService(@ApplicationContext Context context) {
-   // Resources res = context.getResources();
+   Resources res = context.getResources();
+    int identifier = res.getIdentifier("service_client_id", "string", context.getPackageName());
+    String clientId = (identifier != 0) ? res.getString(R.string.service_client_id) : null;
     GoogleSignInOptions.Builder builder = new Builder().requestEmail().requestId().requestProfile();
+
+    if(clientId != null && !clientId.isEmpty()) {
+      builder.requestIdToken(clientId);
+    }
 
     //TODO
 
