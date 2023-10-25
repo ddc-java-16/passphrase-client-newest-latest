@@ -41,6 +41,7 @@ android {
             "de.mannodermaus.junit5.AndroidJUnit5Builder"
 
         resValue("string", "app_name", project.property("appName") as String)
+        resValue("string", "service_baseurl", project.property("serviceBaseUrl") as String)
 
     }
 
@@ -91,6 +92,7 @@ dependencies {
     implementation(libs.material)
 
     //Libraries for accessing HTTP resources
+    implementation(libs.logging.interceptor)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.adapter.rx.java)
     implementation(libs.retrofit.converter.gson)
