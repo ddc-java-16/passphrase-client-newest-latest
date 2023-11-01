@@ -11,6 +11,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PassphraseServiceProxy {
   @GET("passphrase/{key}")
@@ -19,7 +20,8 @@ public interface PassphraseServiceProxy {
   @GET("passphrases")
   Single<List<Passphrase>> get(@Header("Authorization") String bearerToken);
 
-
+  @GET("passphrases")
+  Single<List<Passphrase>> search(@Query("q") String fragment, @Header("Authorization") String bearerToken);
   @POST("passphrases")
   Single<Passphrase> post(@Body Passphrase passphrase, @Header("Authorization") String bearerToken);
 

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         .getAccount()
         .observe(this, (account) -> {
           if (account != null) {
-            binding.name.setText(account.getDisplayName());
+             binding.name.setText(account.getDisplayName());
           } else {
             Intent intent = new Intent(this, LogInActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
