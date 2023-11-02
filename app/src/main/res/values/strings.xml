@@ -38,5 +38,6 @@
   <string name="selectable_text_pref_summary_on">Uneditable text is selectable.</string>
   <string name="selectable_text_pref_summary_off">Uneditable text is not selectable.</string>
   <string name="service_base_url"/>
+  <string name="passphrase_name_fragment">Passphrase name fragment</string>
 
 </resources>

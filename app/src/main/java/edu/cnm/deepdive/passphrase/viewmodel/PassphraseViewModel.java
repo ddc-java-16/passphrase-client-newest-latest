@@ -46,9 +46,54 @@ public class PassphraseViewModel extends ViewModel implements DefaultLifecycleOb
     return throwable;
   }
 
+  public void fetch(String key) {
+    repository
+        .get(key)
+        .subscribe(
+            passphrase::postValue,
+            this::postThrowable,
+            pending.add()
+        );
+
+  }
+
+  public void fetch() {
+    repository.get()
+        .subscribe(passphrases::postValue, this::postThrowable, pending);
+
+  }
+
+  public void search(String fragment) {
+    repository
+        .search(fragment)
+        .subscribe(passphrases::postValue, this::postThrowable,pending);
+  }
+
+  public void add(Passphrase passphrase) {
+    repository
+        .add(passphrase)
+        .subscribe(this.passphrase::postValue, this::postThrowable, pending);
+  }
+  public void update(Passphrase passphrase) {
+    repository
+        .replace(passphrase)
+        .subscribe(this.passphrase::postValue, this::postThrowable, pending);
+  }
   private void postThrowable(Throwable throwable) {
     Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
     this.throwable.postValue(throwable);
+  }
+
+  public void delete(String key) {
+    repository
+        .save(passphrase)
+        .subscribe(passphrase::postValue)
+  }
+
+  public void delete(String key) {
+    repository
+        .delete(key)
+        .subscribe(() -> {}, this::postThrowable, pending);
   }
 
   @Override
