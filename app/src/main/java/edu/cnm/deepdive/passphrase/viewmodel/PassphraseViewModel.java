@@ -32,6 +32,7 @@ public class PassphraseViewModel extends ViewModel implements DefaultLifecycleOb
     passphrases = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
     pending = new CompositeDisposable();
+    fetch();
   }
 //INCLUDE METHODS THAT CAN BE INVOKED FROM CONTROLLER FOR CRUD
   public MutableLiveData<Passphrase> getPassphrase() {

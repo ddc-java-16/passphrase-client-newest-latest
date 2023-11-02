@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,15 +32,14 @@ public class PassphrasesAdapter extends RecyclerView.Adapter<Holder>{
   }
 
   @NonNull
-  @NotNull
   @Override
-  public Holder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-    return null;
+  public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    return new Holder(inflater.inflate(R.layout.item_passphrases, parent, false));
   }
 
   @Override
   public void onBindViewHolder(@NonNull @NotNull Holder holder, int position) {
-
+holder.bind(position);
   }
 
   @Override
@@ -50,9 +50,13 @@ public class PassphrasesAdapter extends RecyclerView.Adapter<Holder>{
   public  class Holder extends RecyclerView.ViewHolder {
 
 
-    public Holder(
+    private Holder(
         @NonNull @NotNull View itemView) {
       super(itemView);
+    }
+    private void bind(int position) {
+      ((TextView) itemView).setText(passphrases.get(position).getName());
+      itemView.setBackgroundColor((position % 2 == 0) ? evenRowColor : oddRowColor);
     }
   }
 

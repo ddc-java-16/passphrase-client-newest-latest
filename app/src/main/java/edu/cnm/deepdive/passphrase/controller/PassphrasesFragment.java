@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
+import edu.cnm.deepdive.passphrase.adapter.PassphrasesAdapter;
 import edu.cnm.deepdive.passphrase.databinding.FragmentPassphrasesBinding;
 import edu.cnm.deepdive.passphrase.viewmodel.PassphraseViewModel;
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +26,8 @@ public class PassphrasesFragment extends Fragment {
       @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
       @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
     binding = FragmentPassphrasesBinding.inflate(inflater, container, false);
+    binding.refresh.setOnClickListener((v) -> viewModel.fetch());
+    binding.search.setOnClickListener((v) -> viewModel.fetch(binding.searchText.getText().toString()));
     //TODO: 11/2/23
     return binding.getRoot();
   }
@@ -38,8 +41,6 @@ public class PassphrasesFragment extends Fragment {
     getLifecycle().addObserver(viewModel);
     viewModel
         .getPassphrases()
-        .observe(getViewLifecycleOwner(), (passphrases -> {
-          //Todo Populate adapter and pass to recyclerview
-        }));
+        .observe(getViewLifecycleOwner(), (passphrases -> binding.passphrases.setAdapter(new PassphrasesAdapter(requireContext(), passphrases))));
   }
 }
