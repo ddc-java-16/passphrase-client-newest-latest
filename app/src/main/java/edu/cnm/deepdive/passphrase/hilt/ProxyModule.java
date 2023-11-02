@@ -28,7 +28,7 @@ public final class ProxyModule {
   PassphraseServiceProxy provideProxy(@ApplicationContext Context context) {
     Gson gson = new GsonBuilder()
         .excludeFieldsWithoutExposeAnnotation()
-        .setDateFormat("yyyy-mm-ddTHH:mm:ss.SSSZ")
+        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
         .create();
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     interceptor.setLevel(Level.BODY);

@@ -47,13 +47,12 @@ public class PassphraseViewModel extends ViewModel implements DefaultLifecycleOb
   }
 
   public void fetch(String key) {
-    repository
+    pending.add(repository
         .get(key)
         .subscribe(
             passphrase::postValue,
-            this::postThrowable,
-            pending.add()
-        );
+            this::postThrowable
+        ));
 
   }
 
@@ -82,12 +81,6 @@ public class PassphraseViewModel extends ViewModel implements DefaultLifecycleOb
   private void postThrowable(Throwable throwable) {
     Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
     this.throwable.postValue(throwable);
-  }
-
-  public void delete(String key) {
-    repository
-        .save(passphrase)
-        .subscribe(passphrase::postValue)
   }
 
   public void delete(String key) {

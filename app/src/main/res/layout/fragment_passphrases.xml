@@ -3,7 +3,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context=".controller.PassphrasesFragment">
 
   <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/search_layout"
@@ -26,7 +28,9 @@
     android:id="@+id/search"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@android:drawable/ic_menu_search"
+    android:src="@drawable/ic_search"
+    android:background="?android:selectableItemBackgroundBorderless"
+    android:contentDescription="@string/search_description"
     app:layout_constraintBottom_toBottomOf="@id/search_layout"
     app:layout_constraintTop_toTopOf="@id/search_layout"
     app:layout_constraintEnd_toStartOf="@id/refresh"/>
@@ -35,10 +39,31 @@
     android:id="@+id/refresh"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@android:drawable/ic_refresh"
+    android:src="@drawable/ic_refresh"
 android:layout_margin="@dimen/half_dynamic_spacing"
+    android:contentDescription="@string/refresh_description"
     app:layout_constraintTop_toTopOf="@id/search_layout"
     app:layout_constraintBottom_toBottomOf="@id/search_layout"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/passphrases"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintTop_toBottomOf="@id/search_layout"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/create"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@android:drawable/ic_input_add"
+    app:useCompatPadding="true"
+    android:contentDescription="@string/create_description"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

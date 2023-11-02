@@ -39,5 +39,8 @@
   <string name="selectable_text_pref_summary_off">Uneditable text is not selectable.</string>
   <string name="service_base_url"/>
   <string name="passphrase_name_fragment">Passphrase name fragment</string>
+  <string name="search_description">Search for passphrases containing fragment text</string>
+  <string name="refresh_description">Refresh list of passphrases</string>
+  <string name="create_description">Create a new passphrase</string>
 
 </resources>
