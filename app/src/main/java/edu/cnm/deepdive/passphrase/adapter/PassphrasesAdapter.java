@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.passphrase.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +12,26 @@ import edu.cnm.deepdive.passphrase.R;
 import edu.cnm.deepdive.passphrase.adapter.PassphrasesAdapter.Holder;
 import edu.cnm.deepdive.passphrase.model.Passphrase;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 
 public class PassphrasesAdapter extends RecyclerView.Adapter<Holder>{
 
-  private  final List<Passphrase> passphrases;
+  private final List<Passphrase> passphrases;
+  private final OnClickListener clickListener;
+  private final OnClickListener longClickListener;
   private final LayoutInflater inflater;
   @ColorInt
   private final int evenRowColor;
   @ColorInt
   private final int oddRowColor;
 
-  public PassphrasesAdapter(Context context, List<Passphrase> passphrases) {
+  public PassphrasesAdapter(@NonNull Context context, @NonNull List<Passphrase> passphrases,
+      @NonNull OnClickListener clickListener, @NonNull OnClickListener longClickListener) {
     this.passphrases = passphrases;
     inflater = LayoutInflater.from(context);
     evenRowColor = context.getColor(R.color.even_row_color);
     oddRowColor = context.getColor(R.color.odd_row_color);
+    this.clickListener = clickListener;
+    this.longClickListener = longClickListener;
   }
 
   @NonNull
@@ -38,26 +41,34 @@ public class PassphrasesAdapter extends RecyclerView.Adapter<Holder>{
   }
 
   @Override
-  public void onBindViewHolder(@NonNull @NotNull Holder holder, int position) {
+  public void onBindViewHolder(@NonNull Holder holder, int position) {
 holder.bind(position);
   }
 
   @Override
   public int getItemCount() {
-    return 0;
+    return passphrases.size();
   }
 
   public  class Holder extends RecyclerView.ViewHolder {
 
 
     private Holder(
-        @NonNull @NotNull View itemView) {
+        @NonNull View itemView) {
       super(itemView);
     }
     private void bind(int position) {
-      ((TextView) itemView).setText(passphrases.get(position).getName());
+      Passphrase passphrase = passphrases.get(position);
+      ((TextView) itemView).setText(passphrase.getName());
       itemView.setBackgroundColor((position % 2 == 0) ? evenRowColor : oddRowColor);
+      itemView.setOnClickListener((v) -> clickListener.onClick(v, position, passphrase));
+      itemView.setOnLongClickListener((v) -> {clickListener.onClick(v, position, passphrase);
+      return true;});
     }
+  }
+  @FunctionalInterface
+public interface OnClickListener {
+    void onClick(View view, int position, Passphrase passphrase);
   }
 
 }

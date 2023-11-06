@@ -3,8 +3,10 @@ package edu.cnm.deepdive.passphrase.model;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -18,14 +20,15 @@ public final class Passphrase {
   private static  final String TO_STRING_FORMAT = "%1$s[key=%2$s, name=%3$s, words=%4$s, length=%5$d]";
 
   @Expose(deserialize = true, serialize = false)
+  @SerializedName("id")
   private final String key = null;
   @Expose(deserialize = true, serialize = false)
   private final Date created = null;
   @Expose(deserialize = true, serialize = false)
   private final Date modified = null;
-  @Expose// TODO: 10/24/23 Create getter.
+  @Expose
   private String name;
-  @Expose// TODO: 10/24/23 Create getter and setter.
+  @Expose
   private List<String> words;
   @Expose(deserialize = false, serialize = true)
   private int length;         // TODO: 10/24/23 Create getter that checks if words field is null: if
