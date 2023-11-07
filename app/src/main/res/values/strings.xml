@@ -47,5 +47,7 @@
   <string name="length">Length</string>
   <string name="generate">generate</string>
   <string name="passphrase_details">Passphrase Details</string>
+  <string name="edit">edit\n\n\n</string>
+  <string name="delete">delete</string>
 
 </resources>

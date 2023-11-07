@@ -58,11 +58,10 @@ holder.bind(position);
       super(itemView);
     }
     private void bind(int position) {
-      Passphrase passphrase = passphrases.get(position);
-      ((TextView) itemView).setText(passphrase.getName());
+      ((TextView) itemView).setText(passphrases.get(position).getName());
       itemView.setBackgroundColor((position % 2 == 0) ? evenRowColor : oddRowColor);
-      itemView.setOnClickListener((v) -> clickListener.onClick(v, position, passphrase));
-      itemView.setOnLongClickListener((v) -> {clickListener.onClick(v, position, passphrase);
+      itemView.setOnClickListener((v) -> clickListener.onClick(v, position, passphrases.get(position)));
+      itemView.setOnLongClickListener((v) -> {clickListener.onClick(v, position, passphrases.get(position));
       return true;});
     }
   }

@@ -46,7 +46,7 @@ public class EditPassphraseFragment extends DialogFragment implements TextWatche
     dialog.setOnShowListener((dlg) -> checkSubmitConditions());
     binding.name.addTextChangedListener(this);
     binding.words.addTextChangedListener(this);
-    binding.generate.setOnClickListener((v) -> {/*to do}*/});
+    binding.generate.setOnClickListener((v) -> viewModel.generate(binding.length.getValue()));
     binding.length.setMinValue(2);
     binding.length.setMaxValue(10);
       return dialog;
@@ -68,7 +68,23 @@ public class EditPassphraseFragment extends DialogFragment implements TextWatche
       super.onViewCreated(view, savedInstanceState);
       viewModel = new ViewModelProvider(requireActivity())
           .get(PassphraseViewModel.class);
-      passphrase = new Passphrase();
+      viewModel.clearGenerated();
+      viewModel.getGenerated()
+          .observe(getViewLifecycleOwner(), (words) -> binding.words.setText((words != null) ? String.join("\n", words) : ""));
+        passphrase = new Passphrase();
+      if (key != null) {
+        viewModel
+            .getPassphrase()
+            .observe(getViewLifecycleOwner(), (passphrase) -> {
+              if(passphrase != null) {
+                binding.name.setText(passphrase.getName());
+                binding.words.setText(String.join("\n", passphrase.getWords()));
+                this.passphrase = passphrase;
+              }
+            });
+        viewModel.fetch(key);
+      } else {
+      }
     }
 
     @Override
@@ -89,6 +105,7 @@ public class EditPassphraseFragment extends DialogFragment implements TextWatche
 
     private void save() {
     passphrase.setName(binding.name.getText().toString().strip());
+    passphrase.clear();
         SPLITTER.splitAsStream(binding.words.getText().toString())
             .filter((word) -> !word.isEmpty())
             .forEach(passphrase::append);

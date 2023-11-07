@@ -38,6 +38,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:inputType="textMultiLine"
+      android:gravity="start|top"
       android:minLines="5"
       android:maxLines="5"
       android:hint="@string/words"
